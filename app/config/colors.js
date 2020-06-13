@@ -3,4 +3,5 @@ export default {
   second: "#a8acb2",
   black: "#000",
   white: "#fff",
+  third: "#6e6999",
 };
