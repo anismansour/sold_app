@@ -9,5 +9,7 @@ export default function Screen({ children }) {
 const styles = StyleSheet.create({
   screen: {
     paddingTop: Constants.statusBarHeight,
+    flex: 1,
+    //flex needed to take the whole screen when we pull to refresh
   },
 });
