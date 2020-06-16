@@ -8,8 +8,14 @@ import AppButton from "./app/components/AppButton";
 import Card from "./app/components/Card";
 import ListingDetail from "./app/screens/ListingDetail";
 import MessagesScreen from "./app/screens/MessagesScreen";
-//<ViewScreen />
+import Screen from "./app/components/Screen";
+import Icon from "./app/components/Icon";
+import ListItem from "./app/components/ListItem";
 
 export default function App() {
-  return <MessagesScreen />;
+  return (
+    <Screen>
+      <ListItem title="my title" ImageComponent={<Icon name="email" />} />
+    </Screen>
+  );
 }
