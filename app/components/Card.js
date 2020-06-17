@@ -17,18 +17,20 @@ function Card({ title, subTitle, image }) {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 15,
     backgroundColor: colors.white,
     marginBottom: 20,
-    overflow: "hidden",
-    // make card round corner on top because the image is overflowing
+    //overflow: "hidden",
+
+    paddingHorizontal: 10,
   },
   image: {
+    borderRadius: 60,
     width: "100%",
     height: 200,
   },
   container: {
     paddingTop: 20,
+    paddingHorizontal: 10,
   },
   title: {
     marginBottom: 7,
