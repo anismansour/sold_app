@@ -1,5 +1,5 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useState } from "react";
+import { View, TextInput, Switch } from "react-native";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ViewScreen from "./app/screens/ViewScreen";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -13,7 +13,10 @@ import Icon from "./app/components/Icon";
 import ListItem from "./app/components/ListItem";
 import AccountScreen from "./app/screens/AccountScreen";
 import ListingsScreen from "./app/screens/ListingsScreen";
+import AppTextInput from "./app/components/AppTextInput";
+import AppPicker from "./app/components/AppPicker";
+import LoginScreen from "./app/screens/LoginScreen";
 
 export default function App() {
-  return <ListingsScreen />;
+  return <LoginScreen />;
 }

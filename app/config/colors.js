@@ -6,4 +6,5 @@ export default {
   third: "#6e6999",
   lightGrey: "#D3D3D3",
   red: "#ff5252",
+  textColor: "#0c0c0c",
 };
