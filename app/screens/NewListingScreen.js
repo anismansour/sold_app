@@ -9,12 +9,12 @@ import ErrorMessage from "../components/ErrorMessage";
 import AppPicker from "../components/AppPicker";
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required().min(1).label("Tile"),
+  title: Yup.string().required().min(1).label("Title"),
   price: Yup.string().required().min(1).max(10000).label("Price"),
   description: Yup.string().label("Description"),
   category: Yup.object().required().nullable().label("Category"),
 });
-let name = "";
+
 const categories = [
   { label: "BMW", value: 1 },
   { label: "MERCEDES", value: 2 },
@@ -41,6 +41,7 @@ export default function NewListingScreen() {
           setFieldTouched,
           touched,
           values,
+          setFieldValue,
         }) => (
           <>
             <AppTextInput
@@ -51,14 +52,17 @@ export default function NewListingScreen() {
               onBlur={() => setFieldTouched("title")}
             />
             <ErrorMessage error={errors.title} visible={touched.title} />
-            {/* <AppPicker
-              name="category"
-              placeholder="choose Brand"
+            <AppPicker //todo fix appPicker   display selectedItem not working
+              icon="apps"
+              placeholder="Choose "
               items={categories}
-              onSelectedItem={(item) => setFieldValue(name, item)}
-              selectedItem={values[name]}
+              selectedItem={"category"}
+              onSelectedItem={(item) => setFieldValue(item)}
             />
-            <ErrorMessage error={errors[name]} visible={touched[name]} /> */}
+            <ErrorMessage
+              error={errors["category"]}
+              visible={touched["category"]}
+            />
 
             <AppTextInput
               placeholder="PRICE"
