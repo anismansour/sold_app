@@ -20,38 +20,26 @@ import AppPicker from "./app/components/AppPicker";
 import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
 import NewListingScreen from "./app/screens/NewListingScreen";
+import ImageInput from "./app/components/ImageInput";
+import ImageInputList from "./app/components/ImageInputList";
 
 export default function App() {
-  const [imageUri, setImageUri] = useState(); //to pass the uri of the image selected
-  const requestPermission = async () => {
-    const result = await ImagePicker.requestCameraRollPermissionsAsync();
-    if (!result.granted) alert("you need to enable access to library");
-  };
+  const [imageUris, setImageUris] = useState([]); //to pass the uri of the image selected
 
-  useEffect(() => {
-    return () => {
-      requestPermission();
-    };
-  }, []);
-  const selectImage = async () => {
-    try {
-      // ImagePicker.launchImageLibraryAsync()  bring the image window from where the user can select an image
-      const result = await ImagePicker.launchImageLibraryAsync();
-      //result property has several properties on documentation ==>
-      //result.cancelled is boolean property that return true if user does not select an image
-      //result.uri return the uri of the image selected
-      if (!result.cancelled) setImageUri(result.uri);
-    } catch (error) {
-      console.log("error from selectImage");
-    }
+  const handleAdd = (uri) => {
+    setImageUris([...imageUris, uri]);
   };
-  //to display the image selected get the uri from result of selectImage
-  //function to pass it will use useState
+  const handleRemove = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
 
   return (
     <Screen>
-      <AppButton title="Select Image" onPress={selectImage} color={"black"} />
-      <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
+      <ImageInputList
+        imageUris={imageUris}
+        onAddImage={(uri) => handleAdd(uri)}
+        onRemoveImage={(uri) => handleRemove(uri)}
+      />
     </Screen>
   );
 }
