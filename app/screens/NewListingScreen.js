@@ -7,12 +7,18 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import ErrorMessage from "../components/ErrorMessage";
 import AppPicker from "../components/AppPicker";
+import AppFormField from "../components/AppFormField";
+import AppForm from "../components/AppForm";
+import SubmitButton from "../components/SubmitButton";
+import AppFormPicker from "../components/AppFormPicker";
+import FormImagePicker from "../components/FormImagePicker";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.string().required().min(1).max(10000).label("Price"),
   description: Yup.string().label("Description"),
   category: Yup.object().required().nullable().label("Category"),
+  images: Yup.array().min(1, "select at least 1 image"),
 });
 
 const categories = [
@@ -24,69 +30,33 @@ const categories = [
 export default function NewListingScreen() {
   return (
     <Screen>
-      <Formik
+      <AppForm
         initialValues={{
           title: "",
           category: null,
           price: "",
           description: "",
+          images: [],
         }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        {({
-          handleChange,
-          handleSubmit,
-          errors,
-          setFieldTouched,
-          touched,
-          values,
-          setFieldValue,
-        }) => (
-          <>
-            <AppTextInput
-              placeholder=" TITLE"
-              MaxLength={100}
-              autoCorrect={true}
-              onChangeText={handleChange("title")}
-              onBlur={() => setFieldTouched("title")}
-            />
-            <ErrorMessage error={errors.title} visible={touched.title} />
-            <AppPicker //todo fix appPicker   display selectedItem not working
-              icon="apps"
-              placeholder="Choose "
-              items={categories}
-              selectedItem={"category"}
-              onSelectedItem={(item) => setFieldValue(item)}
-            />
-            <ErrorMessage
-              error={errors["category"]}
-              visible={touched["category"]}
-            />
-
-            <AppTextInput
-              placeholder="PRICE"
-              onChangeText={handleChange("price")}
-              onBlur={() => setFieldTouched("price")}
-            />
-            <ErrorMessage error={errors.price} visible={touched.price} />
-
-            <AppTextInput
-              placeholder="DESCRIPTION"
-              autoCorrect={true}
-              autoCapitalize="on"
-              onChangeText={handleChange("description")}
-              onBlur={() => setFieldTouched("description")}
-            />
-            <ErrorMessage
-              error={errors.description}
-              visible={touched.description}
-            />
-
-            <AppButton title="POST" color="red" onPress={handleSubmit} />
-          </>
-        )}
-      </Formik>
+        <AppFormField name="title" placeholder="Title" />
+        <FormImagePicker name="images" />
+        <AppFormField keyboardType="numeric" name="price" placeholder="Price" />
+        <AppFormPicker
+          items={categories}
+          name="category"
+          placeholder="Choose Brand"
+        />
+        <AppFormField
+          multiline
+          name="description"
+          numberOfLines={3}
+          placeholder="Description"
+        />
+        <SubmitButton title="Post" />
+      </AppForm>
     </Screen>
   );
 }
