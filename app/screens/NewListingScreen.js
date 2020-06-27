@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Screen from "../components/Screen";
 import AppTextInput from "../components/AppTextInput";
@@ -12,6 +12,7 @@ import AppForm from "../components/AppForm";
 import SubmitButton from "../components/SubmitButton";
 import AppFormPicker from "../components/AppFormPicker";
 import FormImagePicker from "../components/FormImagePicker";
+import * as Location from "expo-location";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -28,6 +29,21 @@ const categories = [
 ];
 
 export default function NewListingScreen() {
+  const [location, setLocation] = useState();
+
+  const getLocation = async () => {
+    const { granted } = await Location.requestPermissionsAsync();
+    if (!granted) return;
+    const {
+      coords: { latitude, longitude },
+    } = await Location.getLastKnownPositionAsync();
+    setLocation({ latitude, longitude });
+  };
+
+  useEffect(() => {
+    getLocation();
+  }, []);
+  //cannot pass async function to useEffect hook thats why we just call the function inside
   return (
     <Screen>
       <AppForm
@@ -38,7 +54,7 @@ export default function NewListingScreen() {
           description: "",
           images: [],
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => console.log(location)}
         validationSchema={validationSchema}
       >
         <AppFormField name="title" placeholder="Title" />
