@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import ImageInput from "./ImageInput";
 
 //collection of image Input
@@ -10,14 +10,21 @@ export default function ImageInputList({
   onAddImage,
 }) {
   return (
-    <View style={styles.container}>
-      {imageUris.map((uri) => (
-        <View style={styles.image}>
-          <ImageInput imageUri={uri} onChangeImage={() => onRemoveImage(uri)} />
-        </View>
-      ))}
+    <View>
+      <ScrollView horizontal={true}>
+        <View style={styles.container}>
+          {imageUris.map((uri) => (
+            <View style={styles.image}>
+              <ImageInput
+                imageUri={uri}
+                onChangeImage={() => onRemoveImage(uri)}
+              />
+            </View>
+          ))}
 
-      <ImageInput onChangeImage={(uri) => onAddImage(uri)} />
+          <ImageInput onChangeImage={(uri) => onAddImage(uri)} />
+        </View>
+      </ScrollView>
     </View>
   );
 }

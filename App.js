@@ -35,11 +35,12 @@ export default function App() {
 
   return (
     <Screen>
-      <ImageInputList
+      {/* <ImageInputList
         imageUris={imageUris}
         onAddImage={(uri) => handleAdd(uri)}
         onRemoveImage={(uri) => handleRemove(uri)}
-      />
+      /> */}
+      <LoginScreen />
     </Screen>
   );
 }
