@@ -32,12 +32,16 @@ export default function NewListingScreen() {
   const [location, setLocation] = useState();
 
   const getLocation = async () => {
-    const { granted } = await Location.requestPermissionsAsync();
-    if (!granted) return;
-    const {
-      coords: { latitude, longitude },
-    } = await Location.getLastKnownPositionAsync();
-    setLocation({ latitude, longitude });
+    try {
+      const { granted } = await Location.requestPermissionsAsync();
+      if (!granted) return;
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getLastKnownPositionAsync();
+      setLocation({ latitude, longitude });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -68,7 +72,7 @@ export default function NewListingScreen() {
         <AppFormField
           multiline
           name="description"
-          numberOfLines={3}
+          // numberOfLines={120}
           placeholder="Description"
         />
         <SubmitButton title="Post" />

@@ -22,11 +22,15 @@ import RegisterScreen from "./app/screens/RegisterScreen";
 import NewListingScreen from "./app/screens/NewListingScreen";
 import ImageInput from "./app/components/ImageInput";
 import ImageInputList from "./app/components/ImageInputList";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import AppNavigator from "./app/navigation/AppNavigator";
 
 export default function App() {
   return (
-    <Screen>
-      <NewListingScreen />
-    </Screen>
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }

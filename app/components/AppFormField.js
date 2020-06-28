@@ -17,6 +17,7 @@ export default function AppFormField({ name, ...otherProps }) {
         // autoCapitalize="none"
         //autoCorrect={false}
         // keyboardType="email-address"
+
         onChangeText={handleChange(name)}
         onBlur={() => setFieldTouched(name)}
         {...otherProps}
