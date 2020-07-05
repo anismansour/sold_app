@@ -4,11 +4,12 @@ import {
   Text,
   View,
   FlatList,
-  ActivityIndicator,
+  // ActivityIndicator, used for regular animation but created a file with animation from lottie
 } from "react-native";
 import Screen from "../components/Screen";
 import Card from "../components/Card";
 import listingsApi from "../api/listings";
+import ActivityIndicator from "../components/ActivityIndicator";
 import { NavigationContainer } from "@react-navigation/native";
 
 export default function ListingsScreen({ navigation }) {
@@ -28,7 +29,7 @@ export default function ListingsScreen({ navigation }) {
 
   return (
     <Screen style={styles.screen}>
-      <ActivityIndicator animating={loading} />
+      <ActivityIndicator visible={loading} />
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}

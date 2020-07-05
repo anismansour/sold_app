@@ -13,6 +13,8 @@ import SubmitButton from "../components/SubmitButton";
 import AppFormPicker from "../components/AppFormPicker";
 import FormImagePicker from "../components/FormImagePicker";
 import * as Location from "expo-location";
+import listingsApi from "../api/listings";
+import listings from "../api/listings";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -48,6 +50,15 @@ export default function NewListingScreen() {
     getLocation();
   }, []);
   //cannot pass async function to useEffect hook thats why we just call the function inside
+  const handleSubmit = async (listing) => {
+    listing.location = location;
+    const result = await listingsApi.addListing(listing, (progress) =>
+      console.log(progress)
+    );
+    if (!result.ok) return alert("could not save listing");
+    alert("success ");
+  };
+
   return (
     <Screen>
       <AppForm
@@ -58,7 +69,7 @@ export default function NewListingScreen() {
           description: "",
           images: [],
         }}
-        onSubmit={(values) => console.log(location)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <AppFormField name="title" placeholder="Title" />
