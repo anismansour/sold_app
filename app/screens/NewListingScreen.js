@@ -50,13 +50,13 @@ export default function NewListingScreen() {
     getLocation();
   }, []);
   //cannot pass async function to useEffect hook thats why we just call the function inside
-  const handleSubmit = async (listing) => {
+  const handleSubmit = async (listing, { resetForm }) => {
     listing.location = location;
     const result = await listingsApi.addListing(listing, (progress) =>
       console.log(progress)
     );
     if (!result.ok) return alert("could not save listing");
-    alert("success ");
+    if (result.ok) return alert("SAVED !!"), resetForm();
   };
 
   return (

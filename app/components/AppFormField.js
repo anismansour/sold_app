@@ -8,7 +8,14 @@ import AppTextInput from "./AppTextInput";
 import { useFormikContext } from "formik";
 
 export default function AppFormField({ name, ...otherProps }) {
-  const { setFieldTouched, handleChange, errors, touched } = useFormikContext();
+  const {
+    setFieldTouched,
+    //handleChange,
+    errors,
+    touched,
+    setFieldValue,
+    values,
+  } = useFormikContext();
   return (
     <>
       <AppTextInput
@@ -18,7 +25,9 @@ export default function AppFormField({ name, ...otherProps }) {
         //autoCorrect={false}
         // keyboardType="email-address"
 
-        onChangeText={handleChange(name)}
+        //onChangeText={handleChange(name)}
+        onChangeText={(text) => setFieldValue(name, text)}
+        value={values[name]}
         onBlur={() => setFieldTouched(name)}
         {...otherProps}
         //textContentType="emailAddress" //will add the email from the key chain IOS ONLY
