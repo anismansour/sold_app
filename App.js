@@ -26,11 +26,15 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import AppNavigator from "./app/navigation/AppNavigator";
+import AuthContext from "./app/auth/context";
 
 export default function App() {
+  const [user, setUser] = useState();
   return (
-    <NavigationContainer>
-      <AuthNavigator />
-    </NavigationContainer>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <NavigationContainer>
+        {user ? <AppNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
