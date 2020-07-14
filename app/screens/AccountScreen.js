@@ -30,7 +30,6 @@ export default function AccountScreen({ navigation }) {
 
   const handleLogOut = () => {
     setUser(null);
-    authStorage.removeToken();
   };
   return (
     <Screen style={styles.screen}>
